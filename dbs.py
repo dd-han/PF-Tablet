@@ -5,23 +5,54 @@ class sqliteDB:
     needCommit = False
     connection = None
 
-    def __init__(self):
-        self.connection = sqlite3.connect(sets.sqliteFile)
+    def __init__(this):
+        this.connection = sqlite3.connect(sets.sqliteFile)
 
-    def __del__(self):
-        if self.needCommit:
-            self.connection.commit()
-        self.connection.close
+    def __del__(this):
+        if this.needCommit:
+            this.connection.commit()
+        this.connection.close
 
-    def forceCommit(self):
-        self.connection.commit()
+    def forceCommit(this):
+        this.connection.commit()
+        needCommit = False
     
-    def initTables(self):
-        cursor = self.connection.cursor()
+    def initTables(this):
+        cursor = this.connection.cursor()
         cursor.execute('CREATE TABLE items(\
-                ID INTEGER PRIMARY KEY NOT NULL, \
-                Name TEXT NOT NULL, \
-                Price INTEGER NOT NULL, \
-                OnSale BOOLEAN, \
-                canOrder BOOLEAN)')
+            ID INTEGER PRIMARY KEY NOT NULL, Name TEXT NOT NULL UNIQUE, \
+            Image TEXT, Price INTEGER NOT NULL, \
+            OnSale BOOLEAN, canOrder BOOLEAN)')
+
+    def lookupMaxID(this):
+        cursor = this.connection.cursor()
+        cursor.execute('SELECT ID FROM items ORDER BY ID DESC LIMIT 1')
+        currentMaxItem = cursor.fetchone()
+        if currentMaxItem == None:
+            return 0
+        else:
+            return currentMaxItem[0]
+
+    
+    def insertItem(this,name,Price,Image = '',OnSale = False,CanOrder = False):
+        currentMaxID = this.lookupMaxID()
+        print(currentMaxID)
+
+        vals = ( currentMaxID+1, name, int(Price),Image,bool(OnSale),bool(CanOrder) )
+        cursor = this.connection.cursor()
+        cursor.execute('INSERT INTO items (ID, Name, Price, Image, OnSale, canOrder) VALUES (?,?,?,?,?,?)', vals)
+        this.needCommit = True
+
+    def getItems(this,OnSale,CanOrder = None):
+        vals = [OnSale]
+        if CanOrder != None:
+            vals.append(CanOrder)
+            sqlext = 'and canOrder = ?'
+        else:
+            sqlext = ''
+        
+        cursor = this.connection.cursor()
+        cursor.execute('SELECT ID, Name, Image, Price FROM items WHERE OnSale = ? '+sqlext,vals)
+
+        return cursor.fetchall()
 

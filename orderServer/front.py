@@ -12,8 +12,8 @@ def index():
     #print('dbConn = None')
     #dbConn = None
 
-    onSale = [1,3,5,7,9]
-    notAvalaiale = [51]
-    onOrder = [33]
+    onSale = dbConn.getItems(True)
+    notAvalaiale = dbConn.getItems(False,False)
+    onOrder = dbConn.getItems(False,True)
     
     return render_template('index.html',onSale=onSale,notAva=notAvalaiale,onOrder=onOrder)

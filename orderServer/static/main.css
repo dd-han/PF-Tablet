@@ -27,3 +27,13 @@ body {
 #itemTitle {
 	
 }
+
+#onOrder {
+	margin-bottom: 2em;
+}
+
+.morenum ,.lessnum {
+	margin-top: 1.7em !important;
+	height: 2.65em;
+	width: 100%;
+}
