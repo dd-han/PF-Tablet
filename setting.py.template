@@ -1,0 +1,27 @@
+#!/usr/bin/pypy3
+# -*- coding: utf-8 -*-
+
+# 此為設定的樣板檔，請依照下面的註解進行自己的設定檔製作
+# 設定檔檔案名稱為，setting.py 請自行複製樣板檔製作
+
+# Only for 0MuServer / 0muMDAU
+
+# Server Setting
+host = "127.0.0.1"
+port = 8509
+
+# Debug Mode , 0 = off , 1 = on
+debug = 0
+
+# session key
+yourkey = ''
+
+# database location
+db_loc = 'db/'
+
+s_log = db_loc + 'server.log'
+
+sqliteFile = db_loc + 'order.db'
+
+# Timeformat 
+t_format = '%Y-%m-%d_%H%M%S'

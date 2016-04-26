@@ -1,0 +1,54 @@
+{% extends "1row-base.html" %}
+
+{% block naviIndexClass %}active{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block title %}訂單管理{% endblock %}
+
+{% block mainFrame %}
+{% if onSale != [] %}
+<h2>以下商品販售中</h2>
+{% if onOrder != [] or notAva != [] %}<p>部份商品已經完售，完售商品請往下查看。</p>{% endif %}
+<div id="onSale" class="ui stackable four column grid">
+	{% for i in onSale%}
+	<div class="column eight wide item">
+		<div class="ui segment">
+			<h2 class="itemTitle">{{i}}</h2>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endif %}
+
+{% if notAva != [] %}
+<h2>以下商品殘念啦</h2>
+<p>不但完售了，而且我們並不打算加印，殘念囉。</p>
+<div id="notAva" class="ui stackable four column grid">
+	{% for i in notAva %}
+	<div class="column eight wide item">
+		<div class="ui segment">
+			<h2 class="itemTitle">{{i}}</h2>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% if onOrder != [] %}
+<h2>以下商品完售啦～</h2>
+<p>如果你想要購買以下的商品，請把平板拿起來填寫預購，場次結束後我們會加印並直接寄到你家。</p>
+<div id="onOrder" class="ui stackable four column grid">
+	{% for i in onOrder %}
+	<div class="column eight wide item">
+		<div class="ui segment">
+			<h2 class="itemTitle">{{i}}</h2>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

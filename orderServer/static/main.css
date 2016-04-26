@@ -1,0 +1,29 @@
+#navibar , #footer {
+	border-radius: 0em;
+	margin: 0em;
+}
+
+#navibar {
+	height: 3em;
+}
+
+#footer {
+	height: 1.6em;
+	padding-top: 2em;
+}
+
+#MainFrame {
+	margin: 0em 0em 0em 0em;
+	/* min-height: 15em; */
+	padding-top: 1em;
+	/* height: calc( 100% - 4.6em ); */
+}
+
+/**   美化UI   **/
+body {
+	background-color: #e6e6e6;
+}
+
+#itemTitle {
+	
+}
