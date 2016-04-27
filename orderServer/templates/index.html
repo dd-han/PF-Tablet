@@ -18,13 +18,17 @@
 	<div class="column eight wide item">
 		<div class="ui segment" id="item-{{i[0]}}">
 			<h2 class="itemTitle">{{i[1]}}</h2>
-			<img src={{i[2]}}>
+			<img src="{{i[2]}}" class="ui fluid image">
 			<p>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p>
 		</div>
 	</div>
 	{% endfor %}
 </div>
 
+{% endif %}
+
+{% if onSale == [] %}
+<h1>全部的商品都完售囉～～</h1>
 {% endif %}
 
 {% if notAva != [] %}
@@ -35,7 +39,7 @@
 	<div class="column eight wide item">
 		<div class="ui segment" id="item-{{i[0]}}">
 			<h2 class="itemTitle">{{i[1]}}</h2>
-			<img src={{i[2]}}>
+			<img src="{{i[2]}}" class="ui fluid image">
 			<p>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p>
 		</div>
 	</div>
@@ -52,7 +56,7 @@
 		<div class="column eight wide item">
 			<div class="ui segment" id="item-{{i[0]}}">
 				<h2 class="itemTitle">{{i[1]}}</h2>
-				<img src={{i[2]}}>
+				<img src="{{i[2]}}" class="ui fluid image">
 				<p>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p>
 				<div class="fields">
 					<div class="four wide field">

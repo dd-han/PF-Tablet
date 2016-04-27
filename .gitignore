@@ -56,4 +56,4 @@ docs/_build/
 # PyBuilder
 db/
 setting.py
-orderServer/static/images/PLACE_ITEM_IMAGE_HERE/*.*
+orderServer/static/images/*.*
