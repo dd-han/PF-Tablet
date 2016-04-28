@@ -37,3 +37,7 @@ body {
 	height: 2.65em;
 	width: 100%;
 }
+
+.itemContent {
+	height: 3em;
+}
