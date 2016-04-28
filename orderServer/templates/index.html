@@ -11,15 +11,15 @@
 {% block mainFrame %}
 {% if onSale != [] %}
 <h2>以下商品販售中</h2>
-{% if onOrder == [] and notAva == [] %}<p>所有商品正常販售中</p>{% endif %}
+{% if onOrder == [] and notAva == [] %}<p>以下商品將會再PF24販售，我們第一天會在N30、第二天會在B11，歡迎前來購買。</p>{% endif %}
 {% if onOrder != [] or notAva != [] %}<p>部份商品已經完售，完售商品請往下查看。</p>{% endif %}
 <div id="onSale" class="ui stackable four column grid">
 	{% for i in onSale%}
 	<div class="column eight wide item">
 		<div class="ui segment" id="item-{{i[0]}}">
-			<h2 class="itemTitle">{{i[1]}}</h2>
-			<img src="{{i[2]}}" class="ui fluid image">
+			<h2 class="itemTitle">{{i[1]|safe}}</h2>
 			<p>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p>
+			<img src="{{i[2]}}" class="ui fluid image">
 		</div>
 	</div>
 	{% endfor %}
@@ -39,8 +39,8 @@
 	<div class="column eight wide item">
 		<div class="ui segment" id="item-{{i[0]}}">
 			<h2 class="itemTitle">{{i[1]}}</h2>
+			<del><p>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p></del>
 			<img src="{{i[2]}}" class="ui fluid image">
-			<p>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p>
 		</div>
 	</div>
 	{% endfor %}
