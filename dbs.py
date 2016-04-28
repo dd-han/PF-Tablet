@@ -21,7 +21,7 @@ class sqliteDB:
         cursor = this.connection.cursor()
         cursor.execute('CREATE TABLE items(\
             ID INTEGER PRIMARY KEY NOT NULL, Name TEXT NOT NULL UNIQUE, \
-            Image TEXT, Price INTEGER NOT NULL, \
+            Image TEXT, Price INTEGER NOT NULL, PriceUnit, ContTEXT, \
             OnSale BOOLEAN, canOrder BOOLEAN)')
 
     def lookupMaxID(this):
@@ -34,13 +34,13 @@ class sqliteDB:
             return currentMaxItem[0]
 
     
-    def insertItem(this,name,Price,Image = '',OnSale = False,CanOrder = False):
+    def insertItem(this,name,Price,PriceUnit='',Image = '',OnSale=False,CanOrder=False,ContTEXT=''):
         currentMaxID = this.lookupMaxID()
         print(currentMaxID)
 
-        vals = ( currentMaxID+1, name, int(Price),Image,bool(OnSale),bool(CanOrder) )
+        vals = ( currentMaxID+1, name, int(Price),Image,bool(OnSale),bool(CanOrder), PriceUnit, ContTEXT )
         cursor = this.connection.cursor()
-        cursor.execute('INSERT INTO items (ID, Name, Price, Image, OnSale, canOrder) VALUES (?,?,?,?,?,?)', vals)
+        cursor.execute('INSERT INTO items (ID, Name, Price, Image, OnSale, canOrder, PriceUnit, ContTEXT) VALUES (?,?,?,?,?,?,?,?)', vals)
         this.needCommit = True
 
     def getItems(this,OnSale,CanOrder = None):
@@ -52,7 +52,7 @@ class sqliteDB:
             sqlext = ''
         
         cursor = this.connection.cursor()
-        cursor.execute('SELECT ID, Name, Image, Price FROM items WHERE OnSale = ? '+sqlext,vals)
+        cursor.execute('SELECT ID, Name, Image, Price, PriceUnit, ContTEXT FROM items WHERE OnSale = ? '+sqlext,vals)
 
         return cursor.fetchall()
 

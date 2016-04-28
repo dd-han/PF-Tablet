@@ -18,7 +18,8 @@
 	<div class="column eight wide item">
 		<div class="ui segment" id="item-{{i[0]}}">
 			<h2 class="itemTitle">{{i[1]|safe}}</h2>
-			<p>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p>
+			<p class="itemContent">{{i[5]}}</p>
+			<p class="itemPrice">每{{i[4]}} NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p>
 			<img src="{{i[2]}}" class="ui fluid image">
 		</div>
 	</div>
