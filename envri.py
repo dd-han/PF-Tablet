@@ -15,6 +15,7 @@ def checkenvir():
         if is_pypy is True:
             try:
                 import flask
+                import pyotp
                 #import sympy
                 return 'pypy3'
             except ImportError:
@@ -24,6 +25,7 @@ def checkenvir():
                     print('Please enter root password !')
                     # call subprocess to install unfound modules
                     subprocess.call(['sudo pypy3 -m pip install Flask'], shell=True)
+                    subprocess.call(['sudo pypy3 -m pip install pyotp'], shell=True)
                 except ImportError:
                     print('You dont have pip install , please input your password to install ')
                     subprocess.call(['curl -s https://bootstrap.pypa.io/get-pip.py |sudo pypy3'], shell=True)

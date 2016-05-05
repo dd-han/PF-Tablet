@@ -19,7 +19,7 @@
 		<div class="ui segment" id="item-{{i[0]}}">
 			<h2 class="itemTitle">{{i[1]|safe}}</h2>
 			<p class="itemContent">{{i[5]|safe}}</p>
-			<p class="itemPrice">每{{i[4]}} NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p>
+			<p class="itemPrice">每{{i[4]}} NT <strong>${% for digital in i[3]|string%}{% if loop.revindex|int % 3 == 0 and not loop.first %},{% endif %}{{digital}}{% endfor %}</strong></p>
 			<img src="{{i[2]}}" class="ui fluid image">
 		</div>
 	</div>
@@ -40,7 +40,7 @@
 	<div class="column eight wide item">
 		<div class="ui segment" id="item-{{i[0]}}">
 			<h2 class="itemTitle">{{i[1]}}</h2>
-			<del><p>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></p></del>
+			<p><del>售價：NT <strong>${% for digital in i[3]|string%}{% if loop.index|int % 4 == 0 %},{% endif %}{{digital}}{% endfor %}</strong></del>  完售囉～～</p>
 			<img src="{{i[2]}}" class="ui fluid image">
 		</div>
 	</div>
@@ -74,13 +74,25 @@
 			</div>
 		</div>
 	{% endfor %}
+		<div class="sixteen wide field">
+			<label>收件人</label>
+			<input type="text" name="Name" id="Name" placeholder="請輸入收件人姓名" >
+		</div>
+		<div class="sixteen wide field">
+			<label>收件地址</label>
+			<input type="text" name="Address" id="Address" placeholder="請輸入收件地址" >
+		</div>
+		<div class="sixteen wide field">
+			<label>聯絡電話</label>
+			<input type="number" name="Phone" id="Phone" placeholder="請輸入收件人聯絡電話" >
+		</div>
 	</div>
-			<button class="ui primary vertical animated button" type="submit">
-				<div class="hidden content">下單</div>
-				<div class="visible content">
-					<i class="shop icon"></i>
-				</div>
-			</button>
+	<button class="ui primary vertical animated button" type="submit">
+		<div class="hidden content">下單</div>
+		<div class="visible content">
+			<i class="shop icon"></i>
+		</div>
+	</button>
 </form>
 {% endif %}
 

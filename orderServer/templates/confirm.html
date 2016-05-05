@@ -1,0 +1,75 @@
+{% extends "1row-base.html" %}
+
+{% block naviIndexClass %}active{% endblock %}
+
+{% block header %}
+	<script src="/static/index.js"></script>
+{% endblock %}
+
+{% block title %}羽天珼岸 商品訂購{% endblock %}
+
+{% block mainFrame %}
+{% if infos == [] %}
+<h2>收件資料不完整</h2>
+<p>請返回<a href="javascript: history.back();">上一頁</a>重新填寫收件資料喔</p>
+{% elif order == [] %}
+<h2>你沒有訂購任何商品</h2>
+<p>請返回<a href="javascript: history.back();">上一頁</a>重新選購商品喔</p>
+{% else %}
+<form method="POST" class="ui form" action="/confirm" >
+<h2>請確認收件資訊</h2>
+<div class="sixteen wide field">
+	<label>收件人</label>
+	<input type="text" name="Name" value="{{infos[0]}}" readonly="" >
+</div>
+<div class="sixteen wide field">
+	<label>收件地址</label>
+	<input type="text" name="Address" value="{{infos[1]}}" readonly="" >
+</div>
+<div class="sixteen wide field">
+	<label>聯絡電話</label>
+	<input type="text" name="Phone" value="{{infos[2]}}" readonly="">
+</div>
+
+<h2>請確認訂購項目</h2>
+<table class="ui celled table">
+	<thead>
+		<tr><th>商品編號</th><th>商品名稱</th><th>單價</th><th>訂購數量</th><th>小計</th></tr>
+	</thead>
+	<tbody>
+		{% for i in orders %}
+		<tr>
+			<td>{{i[0]}}</td>
+			<td>{{i[1]}}</td>
+			<td>NT ${% for digital in i[2]|string%}{% if loop.revindex|int % 3 == 0 and not loop.first %},{% endif %}{{digital}}{% endfor %} / {{i[3]}}</td>
+			<td><input readonly="" name="Order-item-{{i[0]}}" value={{i[4]}}></td>
+			<td>NT ${% for digital in (i[2]*i[4])|string%}{% if loop.revindex|int % 3 == 0 and not loop.first %},{% endif %}{{digital}}{% endfor %}</td>
+			<!--td>NT ${{ i[2] * i[4] }}</td-->
+		</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr><th>總計</th><th></th><th></th><th></th><th>NT $810000</th></tr>
+</table>
+
+<h2>如果以上項目沒問題，請把平板交給攤位人員收錢結帳</h2>
+<div class="sixteen wide field">
+	<label>結帳人</label>
+	<input type="text" name="Checkout" placeholder="請輸入收件人姓名" >
+</div>
+<div class="sixteen wide field">
+	<label>結帳密碼</label>
+	<input type="number" name="OnTimePassword" placeholder="請輸入結帳密碼" >
+</div>
+	<button class="ui primary vertical animated button" type="submit">
+		<div class="hidden content">
+			<i class="shop icon"></i>
+		</div>
+		<div class="visible content">
+			確認收款並產生訂單
+		</div>
+	</button>
+</form>
+{% endif %}
+
+{% endblock %}
