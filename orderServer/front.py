@@ -36,8 +36,8 @@ def index():
                 if curItemNum > 0:
                     orders.append((itemID,itemName,itemPrice,itemPriceUnit,curItemNum))
         else:
-            infos= ()
-            orders = 'NOT COMP'
+            infos= []
+            orders= []
 
         return render_template('confirm.html',infos=infos,orders = orders)
 

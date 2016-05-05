@@ -12,7 +12,7 @@
 {% if infos == [] %}
 <h2>收件資料不完整</h2>
 <p>請返回<a href="javascript: history.back();">上一頁</a>重新填寫收件資料喔</p>
-{% elif order == [] %}
+{% elif orders == [] %}
 <h2>你沒有訂購任何商品</h2>
 <p>請返回<a href="javascript: history.back();">上一頁</a>重新選購商品喔</p>
 {% else %}
@@ -37,25 +37,26 @@
 		<tr><th>商品編號</th><th>商品名稱</th><th>單價</th><th>訂購數量</th><th>小計</th></tr>
 	</thead>
 	<tbody>
+		{% set prices = [] -%}
 		{% for i in orders %}
 		<tr>
 			<td>{{i[0]}}</td>
 			<td>{{i[1]}}</td>
-			<td>NT ${% for digital in i[2]|string%}{% if loop.revindex|int % 3 == 0 and not loop.first %},{% endif %}{{digital}}{% endfor %} / {{i[3]}}</td>
+			<td>{{ "NT ${:,.0f}".format(i[2]) }} / {{i[3]}}</td>
 			<td><input readonly="" name="Order-item-{{i[0]}}" value={{i[4]}}></td>
-			<td>NT ${% for digital in (i[2]*i[4])|string%}{% if loop.revindex|int % 3 == 0 and not loop.first %},{% endif %}{{digital}}{% endfor %}</td>
-			<!--td>NT ${{ i[2] * i[4] }}</td-->
+			{% if prices.append(i[2]*i[4]) %}{% endif %}
+			<td>{{ "NT ${:,.0f}".format(i[2]*i[4]) }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 	<tfoot>
-		<tr><th>總計</th><th></th><th></th><th></th><th>NT $810000</th></tr>
+		<tr><th>總計</th><th></th><th></th><th></th><th>{{ "NT ${:,.0f}".format(prices|sum) }}</th></tr>
 </table>
 
 <h2>如果以上項目沒問題，請把平板交給攤位人員收錢結帳</h2>
 <div class="sixteen wide field">
 	<label>結帳人</label>
-	<input type="text" name="Checkout" placeholder="請輸入收件人姓名" >
+	<input type="text" name="Checkout" placeholder="請選擇結帳者" >
 </div>
 <div class="sixteen wide field">
 	<label>結帳密碼</label>

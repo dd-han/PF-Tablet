@@ -1,3 +1,11 @@
+
+{% macro outputGroupNum(number) -%}
+    {%- for dig in number|string %}
+		{{dig}}
+	{%- endfor %}
+{%- endmacro %}
+
+
 <!DOCTYPE html>
 <html>
 <head>			
