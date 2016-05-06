@@ -47,6 +47,16 @@ class sqliteDB:
         for i in items:
             data = [orderNumber,i[0],i[4]]
             cursor.execute('INSERT INTO OrdersDetail (OrderNumber,ID,ItemAmout) VALUES (?,?,?);',data)
+
+    def listOrders(this):
+        cursor = this.connection.cursor()
+        cursor.execute('SELECT * FROM Orders')
+        return cursor.fetchall()
+
+    def listDetailOrder(this,orderNumber):
+        cursor = this.connection.cursor()
+        cursor.execute('SELECT * FROM OrdersDetail WHERE OrderNumber = ?',[orderNumber])
+        return cursor.fetchall()
         
     def lookupMaxOrderID(this):
         cursor = this.connection.cursor()
