@@ -118,13 +118,13 @@ class orderDB:
                     sameDate = False
                     break
             if sameDate:
-                nextNum = str(curNum + 1)
+                nextNum = str(lastNum + 1)
                 if len(nextNum) >= this.numLength:
                     ## if more than 100 order in 1 Second, there will have some problem!!
                     print("ERROR: Too many order!!")
                     return None
                 else:
-                    return curDate + nextNum
+                    return lastDate + this.numFormater.format(int(nextNum))
             else:
                 return this.strftime(this.t_format,this.now()) + '0'*this.numLength
 

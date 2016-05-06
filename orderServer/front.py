@@ -72,9 +72,16 @@ def confirm():
     if authedcated:
         db = orderDB()
         orderNumber = db.genOrderNum()
-        db.insertOrder(orderNumber,Shipment,orderInfos[0],orderInfos[1])
+        if orderNumber == None:
+            return "訂單太多超過系統限制"
+        else:
+            db.insertOrder(orderNumber,Shipment,orderInfos[0],orderInfos[1])
 
         return render_template('makeorder.html',auth=authedcated,infos=orderInfos[0],orders=orderInfos[1],ship=Shipment,orderNumber=orderNumber)
     
     else:
+        from setting import Log_t_format, OTPFailLog
+        from time import strftime, localtime as now
+        f = open(OTPFailLog,'a')
+        f.writelines( strftime(Log_t_format,now())+"\tAuthencate Fail on checkout!!\n" )
         return render_template('makeorder.html',auth=authedcated,infos=orderInfos[0],orders=orderInfos[1],ship=Shipment)

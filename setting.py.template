@@ -32,4 +32,8 @@ OTPKeys = [
         ('dd-han', 'base32secret3232')
         ]
 
+Log_t_format = '%Y-%m-%d_%H:%M:%S'
+OTPFailLog = db_loc + 'AuthFail.log'
+OTPAdminLOG = db_loc + 'Admin.log'
+
 Shipment = 80
