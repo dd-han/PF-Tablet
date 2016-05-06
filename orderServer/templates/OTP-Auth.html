@@ -1,0 +1,43 @@
+{% extends "1row-base.html" %}
+
+{% block naviIndexClass %}active{% endblock %}
+
+{% block header %}
+	<script src="/static/index.js"></script>
+{% endblock %}
+
+{% block title %}羽天珼岸 管理界面{% endblock %}
+
+{% block mainFrame %}
+{% if authFail == True %}
+<h2>未經授權的存取！！</h2>
+<p>如果你覺得是密碼錯物，請返回<a href="javascript: history.back();">上一頁</a>重新輸入密碼，否則請自行離開！！</p>
+
+{% else %}
+<form method="POST" class="ui form">
+<h2>請確認身份後繼續</h2>
+
+<div class="sixteen wide field">
+	<label>管理員</label>
+		<select name="UserID">
+			{% for i in user %}
+			<option value="{{loop.index0}}">{{i[0]}}</option>
+			{% endfor %}
+		</select>
+</div>
+<div class="sixteen wide field">
+	<label>密碼</label>
+	<input type="number" name="OTP" placeholder="請輸入密碼" >
+</div>
+	<button class="ui primary vertical animated button" type="submit">
+		<div class="hidden content">
+			登入
+		</div>
+		<div class="visible content">
+			Login
+		</div>
+	</button>
+</form>
+{% endif %}
+
+{% endblock %}
