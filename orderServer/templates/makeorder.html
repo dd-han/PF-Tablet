@@ -1,0 +1,54 @@
+{% extends "1row-base.html" %}
+
+{% block naviIndexClass %}active{% endblock %}
+
+{% block header %}
+	<script src="/static/index.js"></script>
+{% endblock %}
+
+{% block title %}羽天珼岸 商品訂購{% endblock %}
+
+{% block mainFrame %}
+{% if not auth %}
+<h2>結帳密碼錯誤</h2>
+<p>請返回<a href="javascript: history.back();">上一頁</a>重新輸入結帳密碼（密碼有效期只有60秒，請注意！）</p>
+{% else %}
+<h2>訂購已經確認</h2>
+<p>訂單號碼：{{orderNumber}}</p>
+<p>收件人：{{infos[0]}}</p>
+<p>收件地址：{{infos[1]}}</p>
+<p>收件電話：{{infos[2]}}</p>
+
+<p>訂購項目：</p>
+<table class="ui celled table">
+	<thead>
+		<tr><th>商品編號</th><th>商品名稱</th><th>單價</th><th>訂購數量</th><th>小計</th></tr>
+	</thead>
+	<tbody>
+		{% set prices = [] -%}
+		{% for i in orders %}
+		<tr>
+			<td>{{i[0]}}</td>
+			<td>{{i[1]}}</td>
+			<td>{{ "NT ${:,.0f}".format(i[2]) }} / {{i[3]}}</td>
+			<td><input readonly="" name="Order-item-{{i[0]}}" value="{{i[4]}}"></td>
+			{% if prices.append(i[2]*i[4]) %}{% endif %}
+			<td>{{ "NT ${:,.0f}".format(i[2]*i[4]) }}</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td>#</td>
+			<td>運費</td>
+			<td>{{ "NT ${:,.0f}".format(ship) }} / 筆</td>
+			<td><input readonly="" name="Order-item-ship" value="1"></td>
+			{% if prices.append(80) %}{% endif %}
+			<td>{{ "NT ${:,.0f}".format(ship) }}</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr><th>總計</th><th></th><th></th><th></th><th>{{ "NT ${:,.0f}".format(prices|sum) }}</th></tr>
+</table>
+
+{% endif %}
+
+{% endblock %}

@@ -64,15 +64,15 @@
 <h2>如果以上項目沒問題，請把平板交給攤位人員收錢結帳</h2>
 <div class="sixteen wide field">
 	<label>結帳人</label>
-		<select>
+		<select name="ConfirmerIdx">
 			{% for i in user %}
-			<option value="{{loop.index}}">{{i[0]}}</option>
+			<option value="{{loop.index0}}">{{i[0]}}</option>
 			{% endfor %}
 		</select>
 </div>
 <div class="sixteen wide field">
 	<label>結帳密碼</label>
-	<input type="number" name="OnTimePassword" placeholder="請輸入結帳密碼" >
+	<input type="number" name="ConfirmerOTP" placeholder="請輸入結帳密碼" >
 </div>
 	<button class="ui primary vertical animated button" type="submit">
 		<div class="hidden content">

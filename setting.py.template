@@ -23,5 +23,13 @@ s_log = db_loc + 'server.log'
 
 sqliteFile = db_loc + 'order.db'
 
+csvOrderLocate = db_loc + 'order.csv'
+
 # Timeformat 
-t_format = '%Y-%m-%d_%H%M%S'
+t_format = '%Y%m%d%H%M%S'
+
+OTPKeys = [
+        ('dd-han', 'base32secret3232')
+        ]
+
+Shipment = 80
