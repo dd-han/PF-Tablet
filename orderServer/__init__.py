@@ -10,4 +10,4 @@ site = Flask(__name__)
 
 #import orderServer.index
 site.register_blueprint(front)
-#site.register_blueprint(admin,url_prefix='/admin')
+site.register_blueprint(admin,url_prefix='/admin')

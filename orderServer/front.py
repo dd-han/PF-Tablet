@@ -84,4 +84,5 @@ def confirm():
         from time import strftime, localtime as now
         f = open(OTPFailLog,'a')
         f.writelines( strftime(Log_t_format,now())+"\tAuthencate Fail on checkout!!\n" )
+        f.close()
         return render_template('makeorder.html',auth=authedcated,infos=orderInfos[0],orders=orderInfos[1],ship=Shipment)
