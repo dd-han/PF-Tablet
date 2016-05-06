@@ -98,6 +98,12 @@ class sqliteDB:
 
         return cursor.fetchall()
 
+    def getItem(this,ID):
+        cursor = this.connection.cursor()
+        cursor.execute('SELECT ID, Name, Image, Price, PriceUnit, ContTEXT FROM items WHERE ID = ? ',[ID])
+
+        return cursor.fetchone()
+
 class orderDB:
     sqlCon = None
     needCommit = False

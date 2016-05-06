@@ -1,0 +1,38 @@
+{% extends "1row-base.html" %}
+
+{% block naviIndexClass %}active{% endblock %}
+
+{% block header %}
+	<script src="/static/index.js"></script>
+{% endblock %}
+
+{% block title %}羽天珼岸 檢視訂單{% endblock %}
+<h2>請確認訂購項目</h2>
+
+{% block mainFrame %}
+<table class="ui celled table">
+	<thead>
+		<tr><th>訂單編號</th><th>訂購人</th><th>地址</th><th>電話</th><th>金額</th></tr>
+	</thead>
+	<tbody>
+		{% for i in orders %}
+		<tr>
+			<td>{{i[0]}}</td>
+			<td>{{i[1]}}</td>
+			<td>{{i[2]}}</td>
+			<td>{{i[3]}}</td>
+			<td>{{i[5]}}</td>
+		</tr>
+		<tr>
+			<td colspan='5'>
+				{% for j in i[6] %}{{j[2]}} {{j[4]}}x{{j[0]}}<br>{% endfor %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr><th>總計</th><th></th><th></th><th></th><th>{{ "NT ${:,.0f}".format(prices|sum) }}</th></tr>
+	</tfoot>
+</table>
+
+{% endblock %}

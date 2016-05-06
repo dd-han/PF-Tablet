@@ -26,7 +26,7 @@ def auth(userID,OTP,path = 'Unknow'):
 @admin.route('/initDB',methods=['GET','POST'])
 def initDB():
     if request.method == 'GET':
-        return render_template('OTP-Auth.html',user=OTPKeys)
+        return render_template('admin-Auth.html',user=OTPKeys)
     else:
         UID = request.form.get('UserID')
         OTP = request.form.get('OTP')
@@ -36,5 +36,43 @@ def initDB():
         
             return "OK"
         else:
-            return render_template('OTP-Auth.html',authFail=True),401
+            return render_template('admin-Auth.html',authFail=True),401
+
+@admin.route('/list',methods=['GET','POST'])
+def list():
+    if request.method == 'GET':
+        return render_template('admin-Auth.html',user=OTPKeys)
+    else:
+        UID = request.form.get('UserID')
+        OTP = request.form.get('OTP')
+        if auth(UID,OTP,'list'):
+            return render_template('admin-Auth.html',authFail=True),401
+        else:
+            dbConn = sqliteDB()
+            orders = dbConn.listOrders()
+            newOrders = []
+            for idx,val in enumerate(orders):
+                ssum = 0
+                ssum = ssum + val[4]
+                
+                newOrders.append([])
+                for j in val:
+                    newOrders[idx].append(j)
+
+                lookup = dbConn.listDetailOrder(val[0])
+                lookupDetail = []
+                for idx2,val2 in enumerate(lookup):
+                    itemInfo = dbConn.getItem(val2[1])
+
+                    ssum = ssum + ( itemInfo[3] * val2[2] )
+                    lookupDetail.append([])
+                    lookupDetail[idx2].append(val2[2])
+                    for val3 in itemInfo:
+                        lookupDetail[idx2].append(val3)
+
+                newOrders[idx].append(ssum)
+                newOrders[idx].append(lookupDetail)
+        
+            return render_template('admin-listOrder.html',orders=newOrders)
+            return str(newOrders)
 
