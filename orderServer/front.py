@@ -53,6 +53,7 @@ def index():
 
 @front.route('/confirm',methods=['POST'])
 def confirm():
+    from dbs import orderDB
     orderInfos = fetchOrderInfo()
     confirmerIDX = request.form.get("ConfirmerIdx")
     confirmerOTP = request.form.get("ConfirmerOTP")
@@ -68,6 +69,12 @@ def confirm():
     except:
         Confirmer = None
 
-    return render_template('makeorder.html',auth=authedcated,infos=orderInfos[0],orders=orderInfos[1],ship=Shipment)
-    return str(authedcated)+str(orderInfos)
+    if authedcated:
+        db = orderDB()
+        orderNumber = db.genOrderNum()
+        db.insertOrder(orderNumber,Shipment,orderInfos[0],orderInfos[1])
 
+        return render_template('makeorder.html',auth=authedcated,infos=orderInfos[0],orders=orderInfos[1],ship=Shipment,orderNumber=orderNumber)
+    
+    else:
+        return render_template('makeorder.html',auth=authedcated,infos=orderInfos[0],orders=orderInfos[1],ship=Shipment)
