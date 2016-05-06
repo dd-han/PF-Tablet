@@ -23,6 +23,8 @@ class sqliteDB:
             ID INTEGER PRIMARY KEY NOT NULL, Name TEXT NOT NULL UNIQUE, \
             Image TEXT, Price INTEGER NOT NULL, PriceUnit, ContTEXT, \
             OnSale BOOLEAN, canOrder BOOLEAN)')
+        this.initOrderTable()
+        this.initOrderDetailTable()
 
     def initOrderTable(this):
         cursor = this.connection.cursor()
